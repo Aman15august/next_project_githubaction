@@ -1,0 +1,24 @@
+name: Build and release Next.js web application
+on: push
+jobs:
+  build-project_push_dockerhub:
+    name: Push Docker image to Docker hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repositry
+        uses: actions/checkout@v3
+
+
+      - name:  Login to docker hub
+        uses: docker/login-action@v2 
+        with:
+          username: ${{secrets.USER_ID}}
+          password: ${{secrets.USER_TOKKEN}}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: amansingh13611/nextrepotest:latest
+ 
